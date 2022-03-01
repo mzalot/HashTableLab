@@ -1,4 +1,5 @@
 # HashTableLab
+Challenge One
 x % n where n is a large prime number would make a better hash function becuase it would produce a unique number and the one with many factors could possibly not create a unique number. 
 Ex: 1000%120 = 40, 1000%320= 40, 1000%97=30
 Challenge Two
