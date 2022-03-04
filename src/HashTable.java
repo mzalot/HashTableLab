@@ -33,10 +33,20 @@ public class HashTable {
             for(int i=0; i<hashTable.length; i++){
                 newHashTable[i] = hashTable[i];
             }
+            hashTable = newHashTable;
         }
-        if (hashTable[hash] == "") {
+        //if hash value is too large make the array bigger
+        while(hash >= hashTable.length){
+            String[] newHashTable = new String[hashTable.length * 2];
+            for(int i=0; i<hashTable.length; i++){
+                newHashTable[i] = hashTable[i];
+            }
+            hashTable = newHashTable;
+        }
+        if (hashTable[hash] == null) {
             success = true;
             hashTable[hash] = value;
+            bucketsFilled ++;
         }
         return success;
     }
@@ -45,18 +55,25 @@ public class HashTable {
     public String get(String key){
         //hashcode value
         int hash = hashCode(key);
-        if(hashTable[hash] != ""){
-            return hashTable[hash];
-        }else{
-            return null;
+        //if hash value is too large make the array bigger
+        while(hash >= hashTable.length){
+            String[] newHashTable = new String[hashTable.length * 2];
+            for(int i=0; i<hashTable.length; i++){
+                newHashTable[i] = hashTable[i];
+            }
+            hashTable = newHashTable;
         }
+        return hashTable[hash];
     }
 
     //returns the unique int in the range of the [0, array length)
     private int hashCode(String key){
         //int value of key
-        Integer keyVal = Integer.valueOf(key);
-        int indexValue = (int) (hashTable.length % (Math.pow(2,keyVal)));
+        String keyVal = "";
+        for(int i = 0; i<key.length(); i++){
+            keyVal += (int)key.charAt(i)-'a';
+        }
+        int indexValue = (int) Integer.parseInt(keyVal);
         return indexValue;
     }
 }
